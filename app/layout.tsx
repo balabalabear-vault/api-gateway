@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { inter } from "@/app/ui/fonts";
 import "./globals.css";
+import Navbar from "./components/Navbar";
+import NextUIProvider from "./providers/NextUi/index";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,10 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        <div>common component shared by all components</div>
-        {children}
-      </body>
-    </html>
+        <body className={`${inter.className} antialiased`}>
+          <NextUIProvider>
+            <Navbar />
+            {children}
+          </NextUIProvider>
+        </body>
+      </html>
   );
 }
