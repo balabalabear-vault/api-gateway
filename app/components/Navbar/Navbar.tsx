@@ -2,8 +2,6 @@ import Vault from "@/app/ui/icons/Vault";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
 
 export function MyNavbar() {
-  console.log('from MyNavbar. should be in server');
-
   return (
     <Navbar>
       <NavbarBrand>
