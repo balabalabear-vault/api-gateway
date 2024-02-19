@@ -17,7 +17,7 @@ export default function Page() {
 
   const handleOnClick = async (event) => {
     console.log(videos)
-    const res = await fetch('/api/profiles/videos/routes', {
+    const res = await fetch('/profiles/videos/api/route', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
