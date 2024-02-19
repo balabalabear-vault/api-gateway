@@ -1,18 +1,16 @@
 import Vault from "@/app/ui/icons/Vault";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
 
-{/* <svg >
-</svg> */}
-
-
 export function MyNavbar() {
+  console.log('from MyNavbar. should be in server');
+
   return (
     <Navbar>
       <NavbarBrand>
         <Vault
           xmlns="http://www.w3.org/2000/svg"
-          width="160"
-          height="160"
+          width="40"
+          height="40"
           fill="red"
           className="bi bi-safe"
           viewBox="0 0 16 16"
