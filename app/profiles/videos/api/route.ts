@@ -1,12 +1,8 @@
-export default function handler(req, res) {
-    if (req.method !== 'POST') {
-      res.status(405).send({ message: 'Only POST requests allowed' })
-      return
-    }
+export function POST(req, res) {
 
     // not needed in NextJS v12+
-    const body = JSON.parse(req.body);
-    console.log(body)
+    // const body = JSON.parse(req.body);
+    console.log(req.body)
   
     // the rest of your code
   }
