@@ -3,6 +3,7 @@ import { inter } from "@/app/ui/fonts";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import NextUIProvider from "./providers/NextUi/index";
+import QueryClientProvider from "./providers/TanstackReactQuery/index";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,8 +19,10 @@ export default function RootLayout({
     <html lang="en">
         <body className={`${inter.className} antialiased`}>
           <NextUIProvider>
-            <Navbar />
-            {children}
+            <QueryClientProvider>
+              <Navbar />
+              {children}
+            </QueryClientProvider>
           </NextUIProvider>
         </body>
       </html>
