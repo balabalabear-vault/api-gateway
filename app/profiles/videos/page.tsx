@@ -7,7 +7,17 @@ import { useQuery } from "@tanstack/react-query";
 import VideoListing from "./VideoListing";
 import RemoveModal from "./RemoveModal";
 
-export type FileWithObjectUrl = File & { objectUrl: string };
+export type TFileWithObjectUrl = File & { objectUrl: string };
+
+export enum ETargetVideoAction {
+  EDIT = 'EDIT',
+  DELETE = 'DELETE'
+}
+
+export type TTargetVideoAction = {
+  id: number;
+  action: ETargetVideoAction
+}
 
 function getMuscleGroups () {
   return fetch(`http://localhost:9001/api/v1/muscle-groups`)
@@ -15,7 +25,7 @@ function getMuscleGroups () {
 }
 
 function postVideos (video: FormData) {
-  return fetch("http://localhost:9001/api/v1/media/videos", {
+  return fetch("http://localhost:9001/api/v1/videos", {
     method: "POST",
     body: video,
   })
@@ -23,8 +33,8 @@ function postVideos (video: FormData) {
 }
 
 export default function Page() {
-  const [videos, setVideos] = useState<FileWithObjectUrl[]>([]);
-  const [targetVideoId, setTargetVideoId] = useState<null | number>(null);
+  const [videos, setVideos] = useState<TFileWithObjectUrl[]>([]);
+  const [targetVideoAction, setTargetVideoAction] = useState<null | TTargetVideoAction>(null);
   const [isPending, startTransition] = useTransition();
 
   const { data, isLoading, isError, isSuccess } = useQuery<any, Error>({
@@ -39,7 +49,7 @@ export default function Page() {
     else {
       startTransition(() => {
         const files = Object.values(uploaded).map((file) => {
-          const fileWithUrl = file as FileWithObjectUrl;
+          const fileWithUrl = file as TFileWithObjectUrl;
           fileWithUrl.objectUrl = URL.createObjectURL(file);
           return fileWithUrl;
         })
@@ -83,17 +93,23 @@ export default function Page() {
       <div className="flex flex-col">
         {
           videos.map((video, index) => (
-            <VideoListing key={index} tempId={index} video={video} setTargetVideoId={setTargetVideoId} />
+            <VideoListing key={index} tempId={index} video={video} setTargetVideoAction={setTargetVideoAction} />
           ))
         }
       </div>
       {
-        typeof targetVideoId==='number' && (
-          <RemoveModal
-            targetVideoId={targetVideoId}
-            setTargetVideoId={setTargetVideoId}
-            setVideos={setVideos}
-          />
+        targetVideoAction
+        && (
+          targetVideoAction.action === ETargetVideoAction.DELETE
+          ? (
+            <RemoveModal
+              targetVideoAction={targetVideoAction}
+              setTargetVideoAction={setTargetVideoAction}
+              setVideos={setVideos}
+            />
+          ):(
+            <div>edit</div>
+          )
         )
       }
 
