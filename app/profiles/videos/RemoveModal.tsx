@@ -2,26 +2,26 @@
 
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react";
 import { Dispatch, SetStateAction } from "react";
-import { FileWithObjectUrl } from "./page";
+import { TFileWithObjectUrl, TTargetVideoAction } from "./page";
 
 export default function RemoveModal({
-  targetVideoId,
-  setTargetVideoId,
+  targetVideoAction,
+  setTargetVideoAction,
   setVideos,
 }: Readonly<{
-  targetVideoId: number,
-	setTargetVideoId: Dispatch<SetStateAction<number | null>>,
-	setVideos: Dispatch<SetStateAction<FileWithObjectUrl[]>>,
+  targetVideoAction: TTargetVideoAction,
+	setTargetVideoAction: Dispatch<SetStateAction<null | TTargetVideoAction>>,
+	setVideos: Dispatch<SetStateAction<TFileWithObjectUrl[]>>,
 }>) {
 
   const handleConfirmation = () => {
     console.log('logic here')
-    setVideos((prev) => prev.filter((video, index) => index !== targetVideoId));
-    setTargetVideoId(null)
+    setVideos((prev) => prev.filter((video, index) => index !== targetVideoAction.id));
+    setTargetVideoAction(null)
   }
 
   return (
-    <Modal backdrop="blur" placement="center" isOpen={true} onClose={() => setTargetVideoId(null)}>
+    <Modal backdrop="blur" placement="center" isOpen={true} onClose={() => setTargetVideoAction(null)}>
       <ModalContent className="text-black">
         {(onClose) => (
           <>
