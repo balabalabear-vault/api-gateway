@@ -24,14 +24,6 @@ function getMuscleGroups () {
     .then((res) => res.json())
 }
 
-function postVideos (video: FormData) {
-  return fetch("http://localhost:9001/api/v1/videos", {
-    method: "POST",
-    body: video,
-  })
-    .then((res) => res.json())
-}
-
 export default function Page() {
   const [videos, setVideos] = useState<TFileWithObjectUrl[]>([]);
   const [targetVideoAction, setTargetVideoAction] = useState<null | TTargetVideoAction>(null);
@@ -47,27 +39,15 @@ export default function Page() {
     const uploaded = event.target.files;
     if (uploaded === null || uploaded.length === 0) return;
     else {
-      startTransition(() => {
+      startTransition(async () => {
         const files = Object.values(uploaded).map((file) => {
           const fileWithUrl = file as TFileWithObjectUrl;
           fileWithUrl.objectUrl = URL.createObjectURL(file);
           return fileWithUrl;
         })
-        console.log(files)
         setVideos([...videos, ...files]);
       })
     }
-  }
-
-  const handleOnClick = (event: MouseEvent<HTMLElement>) => {
-    const res = fetch('/profiles/videos/api', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ hi: "hi" }),
-    })
-    console.log(res)
   }
 
   return (
