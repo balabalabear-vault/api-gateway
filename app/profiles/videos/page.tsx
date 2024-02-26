@@ -2,10 +2,11 @@
 
 import { Button, Input } from "@nextui-org/react";
 import { lusitana } from "../..//ui/fonts";
-import { ChangeEvent, MouseEvent, ReactNode, useEffect, useState, useTransition } from "react";
+import { ChangeEvent, Dispatch, MouseEvent, ReactNode, SetStateAction, useEffect, useState, useTransition } from "react";
 import { useQuery } from "@tanstack/react-query";
 import VideoListing from "./VideoListing";
 import RemoveModal from "./RemoveModal";
+import DatePicker from "./DatePicker";
 
 export type TFileWithObjectUrl = File & { objectUrl: string };
 
@@ -13,6 +14,10 @@ export enum ETargetVideoAction {
   EDIT = 'EDIT',
   DELETE = 'DELETE'
 }
+
+type ValuePiece = Date | null;
+
+export type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export type TTargetVideoAction = {
   id: number;
@@ -25,6 +30,7 @@ function getMuscleGroups () {
 }
 
 export default function Page() {
+  const [date, setDate] = useState<Value>(new Date());
   const [videos, setVideos] = useState<TFileWithObjectUrl[]>([]);
   const [targetVideoAction, setTargetVideoAction] = useState<null | TTargetVideoAction>(null);
   const [isPending, startTransition] = useTransition();
@@ -52,6 +58,7 @@ export default function Page() {
 
   return (
     <>
+      <DatePicker value={date} onChange={setDate}/>
       <h1 className={lusitana.className}> My videos </h1>
       <div>
         <label
