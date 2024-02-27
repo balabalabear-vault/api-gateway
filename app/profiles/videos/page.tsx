@@ -1,12 +1,13 @@
 'use client'
 
-import { Button, Input } from "@nextui-org/react";
-import { lusitana } from "../..//ui/fonts";
-import { ChangeEvent, Dispatch, MouseEvent, ReactNode, SetStateAction, useEffect, useState, useTransition } from "react";
+import { Tab, Tabs } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import VideoListing from "./VideoListing";
-import RemoveModal from "./RemoveModal";
 import DatePicker from "./DatePicker";
+import {Key} from '@react-types/shared';
+import Uploads from "./components/Uploads";
+import MyVideos from "./components/MyVideos";
+
 
 export type TFileWithObjectUrl = File & { objectUrl: string };
 
@@ -30,84 +31,43 @@ function getMuscleGroups () {
 }
 
 export default function Page() {
-  const [date, setDate] = useState<Value>(new Date());
-  const [videos, setVideos] = useState<TFileWithObjectUrl[]>([]);
-  const [targetVideoAction, setTargetVideoAction] = useState<null | TTargetVideoAction>(null);
-  const [isPending, startTransition] = useTransition();
+  const tabs = [{
+    name: "My Videos",
+    component: <MyVideos />,
+  },{
+    name: "Uploads",
+    component: <Uploads />,
+  } ];
+
+  const [currentTab, setCurrentTab] = useState<Key>(tabs[0].name);
+  const [date, setDate] = useState<Value>(null);
 
   const { data, isLoading, isError, isSuccess } = useQuery<any, Error>({
     queryKey: ['muscleGroups'],
     queryFn: () => getMuscleGroups()
   });
 
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    event.stopPropagation();
-    const uploaded = event.target.files;
-    if (uploaded === null || uploaded.length === 0) return;
-    else {
-      startTransition(async () => {
-        const files = Object.values(uploaded).map((file) => {
-          const fileWithUrl = file as TFileWithObjectUrl;
-          fileWithUrl.objectUrl = URL.createObjectURL(file);
-          return fileWithUrl;
-        })
-        setVideos([...videos, ...files]);
-      })
-    }
-  }
+
+  useEffect(() => { setDate(new Date()); }, [])
 
   return (
     <>
       <DatePicker value={date} onChange={setDate}/>
-      <h1 className={lusitana.className}> My videos </h1>
-      <div>
-        <label
-          className="border-solid border-2 rounded border-slate-300"
-          htmlFor="video_uploads"
-        >
-          Choose video to upload
-        </label>
-        <input
-          id="video_uploads"
-          name="video_uploads"
-          type="file"
-          accept="video/*"
-          multiple
-          style={{ opacity: 0 }}
-          onChange={handleOnChange}
-        />
-      </div>
-      <div className="flex flex-col">
+      <Tabs
+        radius="md"
+        aria-label="Tabs radius"
+        selectedKey={currentTab}
+        onSelectionChange={setCurrentTab}
+      >
         {
-          videos.map((video, index) => (
-            <VideoListing key={index} tempId={index} video={video} setTargetVideoAction={setTargetVideoAction} />
+          tabs.map((tab) => (
+            <Tab key={tab.name} title={tab.name} />
           ))
         }
-      </div>
+      </Tabs>
       {
-        targetVideoAction
-        && (
-          targetVideoAction.action === ETargetVideoAction.DELETE
-          ? (
-            <RemoveModal
-              targetVideoAction={targetVideoAction}
-              setTargetVideoAction={setTargetVideoAction}
-              setVideos={setVideos}
-            />
-          ):(
-            <div>edit</div>
-          )
-        )
+        tabs.find((tab) => tab.name === currentTab)?.component
       }
-
-      {/* <Button
-        color="primary"
-        isDisabled={videos.length === 0}
-        onClick={handleOnClick}
-      > 
-        Upload
-      </Button> */}
-
     </>
   )
 }
