@@ -1,16 +1,14 @@
-import Image from "next/image";
+import LandingSection from "./components/LandingSection";
+import SelfIntroSection from "./components/SelfIntroSection";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <Image
-          src="/night_view.jpg"
-          width={322}
-          height={100}
-          className="hidden md:block"
-          alt="Night View from Hokkaido"
-      />
-      <h1>hello World</h1>
+    <main className="flex flex-col items-center justify-center">
+      <LandingSection />
+      <SelfIntroSection />
+      <section className="w-full min-h-lvh p-24 ">
+
+      </section>
     </main>
   );
 }
