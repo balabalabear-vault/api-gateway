@@ -1,46 +1,29 @@
-import Vault from "@/app/ui/icons/Vault";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
+'use client'
+import { Tab, Tabs } from "@nextui-org/react";
 
 export function MyNavbar() {
   return (
-    <Navbar>
-      <NavbarBrand>
-        <Vault
-          xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          fill="red"
-          className="bi bi-safe"
-          viewBox="0 0 16 16"
+    <div className="absolute top-5 w-full flex justify-center items-center">
+      <Tabs color="default" radius="full" className="w-full justify-center">
+        <Tab
+          key="work"
+          title={
+            <div className="flex items-center space-x-2">
+              <span>General</span>
+              <span>🏠</span>
+            </div>
+          }
         />
-      </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
-    </Navbar>
+        <Tab
+          key="gym"
+          title={
+            <div className="flex items-center space-x-2">
+              <span>Gym</span>
+              <span>🏋🏿‍♂️</span>
+            </div>
+          }
+        />
+      </Tabs>
+    </div>
   )
 }
