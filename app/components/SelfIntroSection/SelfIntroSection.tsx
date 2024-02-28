@@ -13,7 +13,7 @@ export default function SelfIntroSection() {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 1], [0.2, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [200, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.7], [200, 0]);
 
   return (
     <motion.section
