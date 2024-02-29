@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import NextUIProvider from "./providers/NextUi/index";
 import QueryClientProvider from "./providers/TanstackReactQuery/index";
+import ResponsiveProvider from "./providers/Responsive";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,8 +24,10 @@ export default function RootLayout({
         <body className={`${inter.className} antialiased`}>
           <NextUIProvider>
             <QueryClientProvider>
-              <Navbar />
-              {children}
+              <ResponsiveProvider>
+                <Navbar />
+                {children}
+              </ResponsiveProvider>
             </QueryClientProvider>
           </NextUIProvider>
         </body>

@@ -8,6 +8,8 @@ export default function Home() {
       <LandingSection />
       <SelfIntroSection />
       <Concept4Section />
+      <section className="w-full min-h-lvh" />
+
     </main>
   );
 }
