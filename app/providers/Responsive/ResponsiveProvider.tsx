@@ -19,7 +19,7 @@ export function ResponsiveProvider({
     isMobile: false,
   });
   const isDesktop = useMediaQuery({
-    query: '(min-width: 1024px)'
+    query: '(min-width: 720px)'
   })
 
   useEffect(() => {
