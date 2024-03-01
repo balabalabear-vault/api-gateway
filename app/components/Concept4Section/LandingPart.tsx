@@ -1,5 +1,5 @@
 import { lusitana } from "@/app/ui/fonts";
-import { useTransform, motion, useScroll } from "framer-motion";
+import { useTransform, motion, useScroll, easeInOut } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -10,9 +10,9 @@ export default function LandingPart() {
     offset: ["start start", "start center"],
   });
 
-  const rotateY = useTransform(scrollYProgress, [0, 0.5], [0, 180]);
-  const backgroundColor = useTransform(scrollYProgress, [0, 1], ["#D50B86", "rgb(30 41 59)"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const rotateY = useTransform(scrollYProgress, [0, 1], [0, 180], { ease: easeInOut });
+  const backgroundColor = useTransform(scrollYProgress, [0, 1], ["#D50B86", "rgb(30 41 59)"], { ease: easeInOut });
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0], { ease: easeInOut });
 
   return (
     <motion.section
