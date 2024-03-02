@@ -31,7 +31,7 @@ export default function LandingSection() {
       >
         <h1 className={`${elven.className} text-center`}>Hello World</h1>
         <p className={`${elven.className} text-center`}>welcome to my vault</p>
-        <p className={`${elven.className} text-center`}>hope you will have a nice journey here</p>
+        <p className={`${elven.className} text-center`}>hope you will have a nice experience here</p>
       </motion.div>
   </section>
   )
