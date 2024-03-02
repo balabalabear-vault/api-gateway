@@ -17,20 +17,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" style={{ backgroundColor: 'rgb(30 41 59)' }}>
       <head>
       <script src="http://localhost:3000"></script>
       </head>
-        <body className={`${inter.className} antialiased`}>
-          <NextUIProvider>
-            <QueryClientProvider>
-              <ResponsiveProvider>
+        <NextUIProvider>
+          <QueryClientProvider>
+            <ResponsiveProvider>
+              <body className={`${inter.className} antialiased bg-slate-800`}>
                 <Navbar />
                 {children}
-              </ResponsiveProvider>
-            </QueryClientProvider>
-          </NextUIProvider>
-        </body>
+              </body>
+            </ResponsiveProvider>
+          </QueryClientProvider>
+        </NextUIProvider>
       </html>
   );
 }
