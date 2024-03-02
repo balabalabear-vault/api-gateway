@@ -17,6 +17,8 @@ const config: Config = {
       },
       colors: {
         'concept4-pink': '#D50B86',
+        'cloudtour-orange': 'rgb(237, 112, 85)',
+        'muselabs-blue': 'rgb(92, 151, 214)',
       },
     },
   },
