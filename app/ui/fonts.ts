@@ -16,3 +16,4 @@ export const lusitana = Lusitana({
 });
 
 export const elven = localFont({ src: './HalfElvenItalicItalic-4O3l.ttf' })
+export const medieval = localFont({ src: './MedievalTimes-AL7l6.ttf' })

@@ -1,31 +1,23 @@
-import { easeIn, motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { lusitana, medieval } from "@/app/ui/fonts";
+import Link from "next/link";
 
 export default function EndingSection() {
-  const sectionRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end end"],
-  });
-
-  const backgroundColor = useTransform(scrollYProgress, [0.8, 0.9, 1], ['#D50B86', 'rgb(30 41 59)', 'rgb(30 41 59)'], { ease: easeIn})
-
-  useMotionValueEvent(scrollYProgress, 'change', () => {
-    // console.log(scrollYProgress.get())
-  })
-
 
   return (
-    <motion.section
-      className="w-full min-h-lvh flex flex-col justify-center items-center bg-slate-800"
-        ref={sectionRef}
-        // style={{ backgroundColor }}
-      >
-
-      <section className="w-full h-[50vh] m-[-50vh] bg-red-400">
-        <h1>CONTACT</h1>
-
-      </section>
-    </motion.section>
+    <section className="w-full h-lvh p-24 flex flex-col items-center justify-center text-neutral-400">
+        <h1 className={`${medieval.className} my-2 leading-7 text-center`}>That's It !</h1>
+        <p className={`${lusitana.className}} text-center`}>The content is not much yet, but I promise as my career develops, I will fill it and share with you.</p>
+        <p className={`${lusitana.className}} leading-7 text-center`}>I hope you still enjoy the website :p</p>
+        <div className={`my-4  ${lusitana.className} flex flex-col md:flex-row justify-center items-center sm:gap-2 md:gap-4`}>
+          <span>© 2024 Kwok Yui Kuen</span>
+          <Link
+            href="https://www.linkedin.com/in/yui-kuen-kwok-1a98b5229/"
+            target="_blank"
+          >
+            <b>LinkedIn</b>
+          </Link>
+          <span className="whitespace-nowrap">Email: kuenyuikwok1106@outlook.com</span>
+        </div>
+    </section>
   )
 }
