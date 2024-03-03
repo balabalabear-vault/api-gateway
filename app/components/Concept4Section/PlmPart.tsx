@@ -1,7 +1,7 @@
 import { MediaContext } from "@/app/providers/Responsive/ResponsiveProvider";
-import { elven, lusitana } from "@/app/ui/fonts";
+import { medieval, lusitana } from "@/app/ui/fonts";
 import { Card, CardHeader, Divider, CardBody } from "@nextui-org/react";
-import { MotionValue, motion, useScroll, useTransform } from "framer-motion";
+import { AnimationPlaybackControls, MotionValue, motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 
@@ -21,7 +21,7 @@ function PartTemplate({
     <motion.div style={{ y, opacity }} className={css}>
       <Card className="lg:max-w-screen-lg max-w-[80%] p-3">
         <CardHeader>
-          <h1 className={`${elven.className} text-center`}>{heading}</h1>
+          <h1 className={`${medieval.className} text-center`}>{heading}</h1>
         </CardHeader>
         <Divider />
         <CardBody className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -113,13 +113,10 @@ export default function PlmPart() {
   const ExclusivenessBriefText = useMemo(() => (
     <>
       <p className={`${lusitana.className} my-2 leading-7`}>
-        The first feature I implemented as a lead developer was the role and permission control using the Nestjs decorator.
+        The first feature I implemented as a lead developer was the permission system using Nestjs decorators.
       </p>
       <p className={`${lusitana.className} my-2 leading-7`}>
-        We are able to enhance our user register flow afterwards and achieved inviting external users to our platform.
-      </p>
-      <p className={`${lusitana.className} my-2 leading-7`}>
-        It is remarkable as it indicates the start of our online collaboration on our exclusive contents.
+        We are able to enhance our user register flow afterwards and achieved inviting external users to our platform, indicating the start of our online collaboration.
       </p>
       <p className={`${lusitana.className} my-2 leading-7`}>
         Dedicated products are shared to clients which improved the efficiency of the entire flow by at least half.
@@ -187,13 +184,13 @@ export default function PlmPart() {
   const PermanentBriefText = useMemo(() => (
     <>
       <p className={`${lusitana.className} my-2 leading-7 shrink-0`}>
-      Having our work accountable is essential. Hence, listing of users' past activities are kept and viewable under management role.
+      List of users' past activities are kept and viewable under management role to ensure accountability.
       </p>
       <p className={`${lusitana.className} my-2 leading-7 shrink-0`}>
-        This is also how we first used MongoDB in our archtecture when a user is trying to export or send something out from PLM.
+        MongoDB is introduced to provide versions of change.
       </p>
       <p className={`${lusitana.className} my-2 leading-7 grow-1`}>
-        It is controversial to mix RMDB and NoSql but our team does agree NoSql has its value when data has complex structure or is foreseeable that it will have frequent change.
+        However, mixing RMDB and NoSql does bring some debates on our team but we agreed NoSql has its value when we need flexibility on data.
       </p>
       <p className={`${lusitana.className} my-2 leading-7`}>
         So ... TA-DA! Here is MongoDB :p
@@ -207,7 +204,6 @@ export default function PlmPart() {
       css: "relative flex justify-center items-start sticky top-4 grow-1",
       y: introductionY,
       opacity: introductionOpacity,
-      isDesktop: isDesktop,
       detailText: IntroductionDetailText,
       briefText: IntroductionBriefText,
     }, {
@@ -216,7 +212,6 @@ export default function PlmPart() {
       imgSource: "/PLM/collection_list.png",
       y: exclusivenessY,
       opacity: exclusivenessYOpacity,
-      isDesktop: isDesktop,
       detailText: ExclusivenessDetailText,
       briefText: ExclusivenessBriefText,
     }, {
@@ -225,7 +220,6 @@ export default function PlmPart() {
       imgSource: "/PLM/shopping_cart.png",
       y: personalizedY,
       opacity: personalizedOpacity,
-      isDesktop: isDesktop,
       detailText: PersonalizedDetailText,
       briefText: PersonalizedBriefText,
     }, {
@@ -234,18 +228,19 @@ export default function PlmPart() {
       imgSource: "/PLM/export_collection.png",
       y: permanentY,
       opacity: permanentOpacity,
-      isDesktop: isDesktop,
       detailText: PermanentDetailText,
       briefText: PermanentBriefText,
     }
   ]), []);
 
-
   return (
-    <motion.section className="relative w-full min-h-[350vh] bg-concept4-pink grid grid-cols-1 justify-center items-start p-4 lg:p-24" ref={sectionRef}>
+    <motion.section
+      className="relative w-full min-h-[500vh] bg-concept4-pink grid grid-cols-1 justify-center items-start p-4 lg:p-24"
+      ref={sectionRef}
+    >
       {
         parts.map((part, index) => (
-          <PartTemplate { ...part } key={index} />
+          <PartTemplate { ...part } isDesktop={isDesktop} key={index} />
         ))
       }
     </motion.section>
