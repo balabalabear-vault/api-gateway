@@ -1,6 +1,6 @@
 'use client'
 import { motion, useAnimate } from "framer-motion";
-import { elven } from "../../ui/fonts";
+import { elven, medieval } from "../../ui/fonts";
 import elfHouse from '../../../public/elf_house.jpg'
 import { useMemo } from "react";
 
@@ -29,7 +29,7 @@ export default function LandingSection() {
         whileHover={animation}
         whileTap={animation}
       >
-        <h1 className={`${elven.className} text-center`}>Hello World</h1>
+        <h1 className={`${medieval.className} text-center`}>Hello World</h1>
         <p className={`${elven.className} text-center`}>welcome to my vault</p>
         <p className={`${elven.className} text-center`}>hope you will have a nice experience here</p>
       </motion.div>
