@@ -12,7 +12,7 @@ export default function SelfIntroSection() {
     offset: ["start end", "center center"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.2, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [0.2, 0.6, 1]);
   const y = useTransform(scrollYProgress, [0, 0.7], [200, 0]);
 
   return (
