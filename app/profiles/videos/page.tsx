@@ -31,16 +31,19 @@ function getMuscleGroups () {
 }
 
 export default function Page() {
+  const [date, setDate] = useState<Value>(null)
+
+  console.log((date as Date)?.toUTCString())
+
   const tabs = [{
     name: "My Videos",
-    component: <MyVideos />,
+    component: <MyVideos date={date?.toISOString().split('T')[0]}/>,
   },{
     name: "Uploads",
     component: <Uploads />,
-  } ];
+  }];
 
   const [currentTab, setCurrentTab] = useState<Key>(tabs[0].name);
-  const [date, setDate] = useState<Value>(null);
 
   const { data, isLoading, isError, isSuccess } = useQuery<any, Error>({
     queryKey: ['muscleGroups'],
