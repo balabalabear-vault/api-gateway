@@ -1,5 +1,6 @@
 'use client'
 import { Tab, Tabs } from "@nextui-org/react";
+import Link from "next/link";
 
 export function MyNavbar() {
   return (
@@ -8,10 +9,12 @@ export function MyNavbar() {
         <Tab
           key="work"
           title={
-            <div className="flex items-center space-x-2">
-              <span>General</span>
-              <span>🏠</span>
-            </div>
+            <Link href="/">
+              <div className="flex items-center space-x-2">
+                <span>General</span>
+                <span>🏠</span>
+              </div>
+            </Link>
           }
         />
         <Tab
