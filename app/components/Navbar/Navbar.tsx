@@ -20,10 +20,12 @@ export function MyNavbar() {
         <Tab
           key="gym"
           title={
-            <div className="flex items-center space-x-2">
-              <span>Gym</span>
-              <span>🏋🏿‍♂️</span>
-            </div>
+            <Link href="/gym">
+              <div className="flex items-center space-x-2">
+                <span>Gym</span>
+                <span>🏋🏿‍♂️</span>
+              </div>
+            </Link>
           }
         />
       </Tabs>
