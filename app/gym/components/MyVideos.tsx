@@ -2,6 +2,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { lusitana } from "@/app/ui/fonts";
+import { useEffect } from "react";
+import { io } from "socket.io-client";
 
 
 async function getMyVideos (date:string) {
@@ -21,7 +23,27 @@ export default function MyVideos({
     queryFn: () => getMyVideos(date)
   });
 
-  console.log(data)
+  useEffect(() => {
+    const socket = io("http://localhost:9001/api/v1");
+    console.log('hi')
+
+    socket.on("connect", () => {
+      console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    });
+    
+    socket.on("disconnect", () => {
+      console.log(socket.id); // undefined
+    });
+
+    socket.on("connect_error", () => {
+      setTimeout(() => {
+        console.log("reconnecting")
+        socket.connect();
+      }, 1000);
+    });
+
+    return () => { socket.disconnect(); console.log('bye'); };
+  }, [])
 
   return (
     <div>
@@ -30,7 +52,13 @@ export default function MyVideos({
         data === undefined || data.length === 0
         ? (<div>empty</div>)
         : data.map((video) => (
-          <video src={`https://d3tzq0axgoep76.cloudfront.net/${video.Key}`} controls/>
+          <section className="bg-cover bg-slate-800 w-full max-h-lvh flex flex-col items-center justify-center">
+            <video
+              src={`https://d3tzq0axgoep76.cloudfront.net/${video.Key}`}
+              controls
+              className="h-[600px]"
+            />
+          </section>
         ))
       }
 
