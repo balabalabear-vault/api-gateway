@@ -2,7 +2,7 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import Calendar from "react-calendar";
-import { Value } from "./page";
+import { Value } from "../../videos/page";
 
 export default function DatePicker({
   value,

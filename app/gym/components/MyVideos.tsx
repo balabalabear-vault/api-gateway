@@ -1,3 +1,4 @@
+'use client'
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { lusitana } from "@/app/ui/fonts";
@@ -25,6 +26,13 @@ export default function MyVideos({
   return (
     <div>
       <h1 className={lusitana.className}> My Videos </h1>
+      {
+        data === undefined || data.length === 0
+        ? (<div>empty</div>)
+        : data.map((video) => (
+          <video src={`https://d3tzq0axgoep76.cloudfront.net/${video.Key}`} controls/>
+        ))
+      }
 
     </div>
   )

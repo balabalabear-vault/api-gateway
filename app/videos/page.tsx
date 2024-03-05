@@ -3,10 +3,10 @@
 import { Tab, Tabs } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import DatePicker from "./DatePicker";
+import DatePicker from "../gym/components/DatePicker";
 import {Key} from '@react-types/shared';
 import Uploads from "./components/Uploads";
-import MyVideos from "./components/MyVideos";
+import MyVideos from "../gym/components/MyVideos";
 
 
 export type TFileWithObjectUrl = File & { objectUrl: string };
