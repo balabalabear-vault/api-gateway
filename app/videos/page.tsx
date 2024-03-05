@@ -8,7 +8,6 @@ import {Key} from '@react-types/shared';
 import Uploads from "./components/Uploads";
 import MyVideos from "../gym/components/MyVideos";
 
-
 export type TFileWithObjectUrl = File & { objectUrl: string };
 
 export enum ETargetVideoAction {
