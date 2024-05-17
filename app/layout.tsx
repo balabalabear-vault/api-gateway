@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { inter } from "@/app/ui/fonts";
 import "./globals.css";
-import Navbar from "./components/Navbar";
 import NextUIProvider from "./providers/NextUi/index";
 import QueryClientProvider from "./providers/TanstackReactQuery/index";
 import ResponsiveProvider from "./providers/Responsive";
@@ -25,7 +24,6 @@ export default function RootLayout({
           <QueryClientProvider>
             <ResponsiveProvider>
               <body className={`${inter.className} antialiased bg-slate-800`}>
-                <Navbar />
                 {children}
               </body>
             </ResponsiveProvider>
