@@ -1,13 +1,20 @@
 "use client"
 
 import { NextUIProvider } from "@nextui-org/react";
-
-export function MyNextUIProvider({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+import { createContext } from 'react'
+ 
+export const UIContext = createContext({})
+ 
+export default function UIProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <NextUIProvider> {children} </NextUIProvider>
+    <UIContext.Provider value={{}}>
+      <NextUIProvider>
+        { children}
+      </NextUIProvider>
+    </UIContext.Provider>
   )
 }
