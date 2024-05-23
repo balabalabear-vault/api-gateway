@@ -1,3 +1,3 @@
-import { MyNextUIProvider } from "./NextUIProvider";
+import MyNextUIProvider from "./NextUIProvider";
 
 export default MyNextUIProvider;

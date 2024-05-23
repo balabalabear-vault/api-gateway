@@ -18,7 +18,6 @@ export default function RootLayout({
   return (
     <html lang="en" style={{ backgroundColor: 'rgb(30 41 59)' }}>
       <head>
-      <script src="http://localhost:3000" />
       </head>
       <body className={`${inter.className} antialiased bg-slate-800`}>
         <NextUIProvider>

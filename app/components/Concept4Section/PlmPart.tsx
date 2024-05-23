@@ -45,7 +45,7 @@ function PartTemplate({
 export default function PlmPart() {
   const media = useContext(MediaContext);
   const [isDesktop, setIsDesktop] = useState(media.isDesktop);
-  useEffect(() => { if (media.isDesktop !== isDesktop) setIsDesktop(media.isDesktop); }, [media])
+  useEffect(() => { if (media.isDesktop !== isDesktop) setIsDesktop(media.isDesktop); }, [media, isDesktop])
 
   const sectionRef = useRef(null)
   const { scrollYProgress } = useScroll({
@@ -167,7 +167,7 @@ export default function PlmPart() {
   const PermanentDetailText = useMemo(() => (
     <>
       <p className={`${lusitana.className} my-2 leading-7`}>
-        Having our work accountable is essential for making management decisions and avoiding potential legal disputes. Hence, listing of users' past activities are common all around our website which can only be accessible under management role.
+        Having our work accountable is essential for making management decisions and avoiding potential legal disputes. Hence, listing of users&apos; past activities are common all around our website which can only be accessible under management role.
       </p>
       <p className={`${lusitana.className} my-2 leading-7`}>
         This is how MongoDB steps into our architecture. If a user is exporting or sending something out from PLM, we will have a new entry in Mongo and a pdf of its content.
@@ -184,7 +184,7 @@ export default function PlmPart() {
   const PermanentBriefText = useMemo(() => (
     <>
       <p className={`${lusitana.className} my-2 leading-7 shrink-0`}>
-      List of users' past activities are kept and viewable under management role to ensure accountability.
+      List of users&apos; past activities are kept and viewable under management role to ensure accountability.
       </p>
       <p className={`${lusitana.className} my-2 leading-7 shrink-0`}>
         MongoDB is introduced to provide versions of change.
@@ -198,7 +198,8 @@ export default function PlmPart() {
     </>
   ), []);
 
-  const parts = useMemo(() => ([{
+  const parts = useMemo(() => ([
+    {
       heading: "Product Lifecycle Management - PLM",
       imgSource: "/PLM/homepage.png",
       css: "relative flex justify-center items-start sticky top-4 grow-1",
@@ -231,7 +232,24 @@ export default function PlmPart() {
       detailText: PermanentDetailText,
       briefText: PermanentBriefText,
     }
-  ]), []);
+  ]), [
+    introductionY,
+    introductionOpacity,
+    IntroductionDetailText,
+    IntroductionBriefText,
+    exclusivenessY,
+    exclusivenessYOpacity,
+    ExclusivenessDetailText,
+    ExclusivenessBriefText,
+    personalizedY,
+    personalizedOpacity,
+    PersonalizedDetailText,
+    PersonalizedBriefText,
+    permanentY,
+    permanentOpacity,
+    PermanentDetailText,
+    PermanentBriefText,
+  ]);
 
   return (
     <motion.section
