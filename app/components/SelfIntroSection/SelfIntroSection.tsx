@@ -30,7 +30,7 @@ export default function SelfIntroSection() {
 
   const briefText = useMemo(() => (
     <>
-      <p className={`${lusitana.className} my-2 leading-7 text-justify`}>I am Kwok Yui Kuen, Jack, a full stack developer from Hong Kong. The world is full of excitements but coding will always be my prime as building something that can help people is meaningful to me.</p>
+      <p className={`${lusitana.className} my-2 leading-7 text-justify`}>I am Yui Kuen Kwok, Jack, a full stack developer from Hong Kong. The world is full of excitements but coding will always be my prime as building something that can help people is meaningful to me.</p>
       <p className={`${lusitana.className} my-2 leading-7 text-justify`}>Sports is my second life.  I cannot live without it. Winter sports is something I want to master later on xD</p>
       <p className={`${lusitana.className} my-2 leading-7 text-justify`}>I would love to share more about myself, but maybe you only want a fast grasp of my website. So ... Let&apos;s Scroll!</p>
     </>
