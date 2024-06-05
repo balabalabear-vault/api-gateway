@@ -1,4 +1,3 @@
-'use client'
 import Concept4Section from "./components/Concept4Section";
 import LandingSection from "./components/LandingSection";
 import SelfIntroSection from "./components/SelfIntroSection";
