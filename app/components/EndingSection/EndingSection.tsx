@@ -11,12 +11,16 @@ export default function EndingSection() {
         <div className={`my-4  ${lusitana.className} flex flex-col md:flex-row justify-center items-center sm:gap-2 md:gap-4`}>
           <span>© 2024 Kwok Yui Kuen</span>
           <Link
-            href="https://www.linkedin.com/in/yui-kuen-kwok-1a98b5229/"
+            href="https://www.linkedin.com/in/yui-kuen-kwok"
             target="_blank"
           >
             <b>LinkedIn</b>
           </Link>
-          <span className="whitespace-nowrap">Email: kuenyuikwok1106@outlook.com</span>
+          <span className="whitespace-nowrap">
+            Email: kuenyuikwok1106@outlook.com
+            <a href="mailto:kuenyuikwok1106@outlook.com">Email: kuenyuikwok1106@outlook.com</a>
+          </span>
+
         </div>
     </section>
   )
