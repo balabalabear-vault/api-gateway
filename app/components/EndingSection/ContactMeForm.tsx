@@ -1,7 +1,7 @@
 "use client"
 
-import {Input} from "@nextui-org/input";
-import {Textarea} from "@nextui-org/input";
+import { Input } from "@nextui-org/input";
+import { Textarea } from "@nextui-org/input";
 import { Button } from "@nextui-org/react";
 import { useReducer } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -14,7 +14,7 @@ type TInputs = {
   message: string
 }
 
-function reducer(state: TInputs, action: {type: string, value: string}): TInputs {
+function reducer(state: TInputs, action: { type: string, value: string }): TInputs {
   switch (action.type) {
     case 'change_firstName': {
       return ({
@@ -71,89 +71,89 @@ export default function ContactMeForm() {
   const onSubmit: SubmitHandler<TInputs> = (data) => console.log('xd', data);
 
   return (
-      <form className="w-full">
-        <div className="flex flex-row my-1">
-          <Input
-            isRequired
-            label="First Name"
-            size="sm"
-            color={errors.firstName ? "danger" : "default"}
-            value={state.firstName}
-            onValueChange={(value) => dispatch({
-              type: 'change_firstName',
-              value
-            })}
-            // variant="bordered"
-            className="w-6/12 mr-1"
-            {...register("firstName", { required: true })}
-          />
-          <Input
-            isRequired
-            label="Last Name"
-            size="sm"
-            color={errors.lastName ? "danger" : "default"}
-            value={state.lastName}
-            onValueChange={(value) => dispatch({
-              type: 'change_lastName',
-              value
-            })}
-            // variant="bordered"
-            className="w-6/12 ml-1"
-            {...register("lastName", { required: true })}
-          />
-        </div>
+    <form className="w-full">
+      <div className="flex flex-row my-1">
         <Input
           isRequired
-          type="email"
-          label="Email"
+          label="First Name"
           size="sm"
-          color={errors.email ? "danger" : "default"}
-          value={state.email}
+          color={errors.firstName ? "danger" : "default"}
+          value={state.firstName}
           onValueChange={(value) => dispatch({
-            type: 'change_email',
+            type: 'change_firstName',
             value
           })}
           // variant="bordered"
-          className="w-full my-1"
-          isInvalid={!!errors.email}
-          errorMessage={errors.email?.message}
-          {...register("email", {
-            required: true,
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "Entered value does not match email format",
-            },
-          })}
+          className="w-6/12 mr-1"
+          {...register("firstName", { required: true })}
         />
         <Input
           isRequired
-          label="Subject"
+          label="Last Name"
           size="sm"
-          color={errors.subject ? "danger" : "default"}
-          value={state.subject}
+          color={errors.lastName ? "danger" : "default"}
+          value={state.lastName}
           onValueChange={(value) => dispatch({
-            type: 'change_subject',
+            type: 'change_lastName',
             value
           })}
           // variant="bordered"
-          className="w-full my-1"
-          {...register("subject", { required: true })}
+          className="w-6/12 ml-1"
+          {...register("lastName", { required: true })}
         />
+      </div>
+      <Input
+        isRequired
+        type="email"
+        label="Email"
+        size="sm"
+        color={errors.email ? "danger" : "default"}
+        value={state.email}
+        onValueChange={(value) => dispatch({
+          type: 'change_email',
+          value
+        })}
+        // variant="bordered"
+        className="w-full my-1"
+        isInvalid={!!errors.email}
+        errorMessage={errors.email?.message}
+        {...register("email", {
+          required: true,
+          pattern: {
+            value: /\S+@\S+\.\S+/,
+            message: "Entered value does not match email format",
+          },
+        })}
+      />
+      <Input
+        isRequired
+        label="Subject"
+        size="sm"
+        color={errors.subject ? "danger" : "default"}
+        value={state.subject}
+        onValueChange={(value) => dispatch({
+          type: 'change_subject',
+          value
+        })}
+        // variant="bordered"
+        className="w-full my-1"
+        {...register("subject", { required: true })}
+      />
 
-        <Textarea
-          isRequired
-          label="Message"
-          minRows={10}
-          color={errors.message ? "danger" : "default"}
-          placeholder="Enter something here..."
-          value={state.message}
-          onValueChange={(value) => dispatch({
-            type: 'change_message',
-            value
-          })}
-          {...register("message", { required: true })}
-        />  
-        <Button title="Send" className="w-full my-2" onClick={handleSubmit(onSubmit)}>Send</Button>
-      </form>
+      <Textarea
+        isRequired
+        label="Message"
+        minRows={10}
+        color={errors.message ? "danger" : "default"}
+        placeholder="Enter something here..."
+        value={state.message}
+        onValueChange={(value) => dispatch({
+          type: 'change_message',
+          value
+        })}
+        {...register("message", { required: true })}
+      />
+      <Button title="Send" className="w-full my-2" onClick={handleSubmit(onSubmit)}>Send</Button>
+    </form>
   )
 }
