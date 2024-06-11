@@ -1,12 +1,15 @@
 "use client"
 
+import { createMessage } from "@/app/api/route";
+import Check from "@/app/ui/icons/Check";
 import { Input } from "@nextui-org/input";
 import { Textarea } from "@nextui-org/input";
 import { Button } from "@nextui-org/react";
-import { useReducer } from "react";
+import { useEffect, useReducer, useState, useTransition } from "react";
+import { useFormState, useFormStatus } from "react-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-type TInputs = {
+export type TInputs = {
   firstName: string
   lastName: string
   email: string
@@ -56,9 +59,12 @@ export default function ContactMeForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
+    setError,
   } = useForm<TInputs>();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const [state, dispatch] = useReducer(reducer, {
     firstName: '',
@@ -68,10 +74,29 @@ export default function ContactMeForm() {
     message: '',
   });
 
-  const onSubmit: SubmitHandler<TInputs> = (data) => console.log('xd', data);
+  const onSubmit: SubmitHandler<TInputs> = async (data) => {
+    setIsLoading(true);
+    const res = await createMessage(data);
+    switch(res.status) {
+      case 400: {
+        Object.entries(res.errors).forEach(([k, [v]]) => {
+          setError(k, { type: 'custom', message: v })
+        })
+        return;
+      }
+      case 201: {
+        setIsSuccess(true);
+        return;
+      }
+    }
+    setIsLoading(false);
+  }
 
   return (
-    <form className="w-full">
+    <form
+      className="w-full"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="flex flex-row my-1">
         <Input
           isRequired
@@ -83,7 +108,6 @@ export default function ContactMeForm() {
             type: 'change_firstName',
             value
           })}
-          // variant="bordered"
           className="w-6/12 mr-1"
           {...register("firstName", { required: true })}
         />
@@ -97,7 +121,6 @@ export default function ContactMeForm() {
             type: 'change_lastName',
             value
           })}
-          // variant="bordered"
           className="w-6/12 ml-1"
           {...register("lastName", { required: true })}
         />
@@ -153,7 +176,17 @@ export default function ContactMeForm() {
         })}
         {...register("message", { required: true })}
       />
-      <Button title="Send" className="w-full my-2" onClick={handleSubmit(onSubmit)}>Send</Button>
+      <Button
+        title="Send"
+        className="w-full my-2"
+        type="submit"
+        color={isSuccess && "success" || isLoading && "default" || "secondary"}
+        startContent={isSuccess && <Check />}
+        disabled={isSuccess}
+      >
+        { isSuccess && 'Message Sent' || isLoading && "Sending Message" || "Send" }
+      </Button>
+
     </form>
   )
 }
