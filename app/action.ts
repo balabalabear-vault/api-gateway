@@ -1,7 +1,7 @@
 'use server'
 import chalk from 'chalk';
 import { z } from 'zod';
-import { TInputs } from '../components/EndingSection/ContactMeForm';
+import { TInputs } from './components/EndingSection/ContactMeForm';
 
 const error = chalk.bold.red;
 
