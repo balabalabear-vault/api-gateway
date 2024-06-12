@@ -9,7 +9,11 @@ const createErrorMessage = (field: string) => ({
     invalid_type_error: `Invalid ${field}`
 })
 
-export async function createMessage(formData: TInputs) {
+export async function createMessage(formData: TInputs): Promise<{
+    status: number,
+    message?: string,
+    errors?: string | {}
+}>{
     const MessageSchema = z.object({
         firstName: z.string(createErrorMessage('firstName')),
         lastName: z.string(createErrorMessage('lastName')),
@@ -39,7 +43,7 @@ export async function createMessage(formData: TInputs) {
         console.error(error(require('util').inspect(e, {colors:true, depth:null})));
         switch(e.side) {
             case 'Clients': return { ...e, status: 400 };
-            default: return ({ error: 'Error processing request', status: 500 });
+            default: return ({ errors: 'Error processing request', status: 500 });
         }
     }
 }
