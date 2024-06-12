@@ -78,7 +78,9 @@ export default function ContactMeForm() {
     const res = await createMessage(data);
     switch(res.status) {
       case 400: {
+        // @ts-ignore
         Object.entries(res.errors).forEach(([k, [v]]) => {
+          // @ts-ignore
           setError(k, { type: 'custom', message: v })
         })
         return;
