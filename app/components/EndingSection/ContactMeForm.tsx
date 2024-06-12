@@ -1,6 +1,6 @@
 "use client"
 
-import { createMessage } from "@/app/action";
+import { TResponse, createMessage } from "@/app/action";
 import Check from "@/app/ui/icons/Check";
 import { Input } from "@nextui-org/input";
 import { Textarea } from "@nextui-org/input";
@@ -75,14 +75,16 @@ export default function ContactMeForm() {
 
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
     setIsLoading(true);
-    const res = await createMessage(data);
+    const res: TResponse = await createMessage(data);
     switch(res.status) {
       case 400: {
-        // @ts-ignore
-        Object.entries(res.errors).forEach(([k, [v]]) => {
-          // @ts-ignore
-          setError(k, { type: 'custom', message: v })
-        })
+        if(res.errors && typeof res.errors === "object") {
+          Object.entries(res.errors).forEach(([k, v]) => {
+            if(v.length) {
+              setError(k as keyof TInputs, { type: 'custom', message: v.join('\n') })
+            }
+          })
+        }
         return;
       }
       case 201: {

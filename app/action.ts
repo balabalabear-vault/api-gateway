@@ -5,18 +5,20 @@ import { TInputs } from './components/EndingSection/ContactMeForm';
 
 const error = chalk.bold.red;
 
+export type TResponse = {
+    status: number,
+    message?: string,
+    errors?: string | { [key: string]: string[] }
+  }
+
 const createErrorMessage = (field: string) => ({
     invalid_type_error: `Invalid ${field}`
 })
 
-export async function createMessage(formData: TInputs): Promise<{
-    status: number,
-    message?: string,
-    errors?: string | {}
-}>{
+export async function createMessage(formData: TInputs): Promise<TResponse>{
     const MessageSchema = z.object({
-        firstName: z.string(createErrorMessage('firstName')),
-        lastName: z.string(createErrorMessage('lastName')),
+        firstName: z.number(createErrorMessage('firstName')),
+        lastName: z.number(createErrorMessage('lastName')),
         email: z.string(createErrorMessage('email')),
         subject: z.string(createErrorMessage('subject')),
         message: z.string(createErrorMessage('message'))
