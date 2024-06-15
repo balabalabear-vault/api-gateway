@@ -17,8 +17,8 @@ const createErrorMessage = (field: string) => ({
 
 export async function createMessage(formData: TInputs): Promise<TResponse>{
     const MessageSchema = z.object({
-        firstName: z.number(createErrorMessage('firstName')),
-        lastName: z.number(createErrorMessage('lastName')),
+        firstName: z.string(createErrorMessage('firstName')),
+        lastName: z.string(createErrorMessage('lastName')),
         email: z.string(createErrorMessage('email')),
         subject: z.string(createErrorMessage('subject')),
         message: z.string(createErrorMessage('message'))
