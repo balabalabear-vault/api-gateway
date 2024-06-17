@@ -15,8 +15,8 @@ export default function NavBar() {
             url: "/",
         },
         {
-            name: "Trips",
-            url: "/trips",
+            name: "Travel",
+            url: "/travels",
         }
     ]), []);
 
@@ -56,8 +56,7 @@ export default function NavBar() {
                         <Link
                             className="w-full"
                             href={item.url}
-                            size="lg"
-                        >
+                         >
                             {item.name}
                         </Link>
                     </NavbarMenuItem>
