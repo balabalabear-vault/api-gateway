@@ -8,20 +8,24 @@ import { Geometry, Base } from '@react-three/csg'
 import * as THREE from 'three';
 import { BufferGeometry, Material, Mesh, NormalBufferAttributes, Object3DEventMap } from 'three'
 
-function Earth() {
+type TGeneralState = {
+    hover: boolean;
+}
+
+function Earth({
+    hover
+}: TGeneralState) {
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>, Material | Material[], Object3DEventMap>>(null);
 
     const [albedoMap, bumpMap] = useLoader(THREE.TextureLoader, [
         './earth-texture/Albedo.jpg',
         './earth-texture/Bump.jpg',
     ]);
-
     useFrame((state, delta) => {
-        if (meshRef.current) {
+        if (meshRef.current && !hover) {
             meshRef.current.rotation.y += delta / 4;
         }
     })
-
     return (
         <mesh
             visible
@@ -42,13 +46,15 @@ function Earth() {
     )
 }
 
-function Cloud() {
+function Cloud({
+    hover
+}: TGeneralState) {
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>, Material | Material[], Object3DEventMap>>(null);
     const [cloudsMap] = useLoader(THREE.TextureLoader, [
         './earth-texture/Clouds.png',
     ]);
     useFrame((state, delta) => {
-        if (meshRef.current) {
+        if (meshRef.current && !hover) {
             meshRef.current.rotation.y += delta / 4;
         }
     })
@@ -67,26 +73,23 @@ function Cloud() {
 
 }
 
-function Surrounding() {
+function Surrounding({
+    hover
+}: TGeneralState) {
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>, Material | Material[], Object3DEventMap>>(null);
-    const [hovered, setHover] = useState(false);
-
     useFrame((state, delta) => {
-        if (meshRef.current) {
+        if (meshRef.current && !hover) {
             meshRef.current.rotation.y += delta / 4;
         }
     })
-
     return (
         <mesh
             visible
             ref={meshRef}
-            onPointerOver={(event) => setHover(true)}
-            onPointerOut={(event) => setHover(false)}
         >
             <sphereGeometry args={[4.01, 64, 64]} />
             <meshStandardMaterial
-                color={hovered ? "#2196F3" : "#ADDFFF"}
+                color={hover ? "#2196F3" : "#ADDFFF"}
                 transparent
                 opacity={0.2}
             />
@@ -96,17 +99,24 @@ function Surrounding() {
 }
 
 export default function Trips() {
+    const [hover, setHover] = useState(false);
     return (
         <section className='h-dvh'>
-            <Canvas>
+            <Canvas camera={{ position: [15, 0, 0] }}>
                 <ambientLight intensity={Math.PI / 2} />
                 <spotLight position={[5, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
-                <group>
-                    <OrbitControls />
+                <group
+                    onPointerOver={(event) => setHover(true)}
+                    onPointerOut={(event) => setHover(false)}
+                >
+                    <OrbitControls
+                        minDistance={5}
+                        maxDistance={20}
+                    />
                     <Center>
-                        <Earth />
-                        <Cloud />
-                        <Surrounding />
+                        <Earth hover={hover} />
+                        <Cloud hover={hover} />
+                        <Surrounding hover={hover} />
                     </Center>
                 </group>
             </Canvas>

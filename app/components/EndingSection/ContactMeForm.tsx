@@ -100,7 +100,7 @@ export default function ContactMeForm() {
       className="w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex flex-row my-1">
+      <div className="sm:flex sm:flex-row">
         <Input
           isRequired
           label="First Name"
@@ -111,7 +111,7 @@ export default function ContactMeForm() {
             type: 'change_firstName',
             value
           })}
-          className="w-6/12 mr-1"
+          className="w-full my-1 sm:my-0 sm:w-6/12 sm:mr-1"
           {...register("firstName", { required: true })}
         />
         <Input
@@ -124,7 +124,7 @@ export default function ContactMeForm() {
             type: 'change_lastName',
             value
           })}
-          className="w-6/12 ml-1"
+          className="w-full my-1 sm:my-0 sm:w-6/12 sm:ml-1"
           {...register("lastName", { required: true })}
         />
       </div>
