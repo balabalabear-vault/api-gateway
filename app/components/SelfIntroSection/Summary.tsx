@@ -39,6 +39,7 @@ export default function Summary() {
           {
             descriptions.map((description, index) => (
               <span
+                key={index}
                 className={`bg-clip-text flex justify-center align-center text-transparent bg-gradient-to-r ${colorGenerator(index)}`}
               >
                 {description}
