@@ -3,7 +3,7 @@ import { useAnimate } from "framer-motion"
 import { useEffect } from "react"
 
 export default function Summary() {
-  const [scope, animate] = useAnimate()
+  const [scope, animate] = useAnimate();
 
   useEffect(() => {
     void animate(
