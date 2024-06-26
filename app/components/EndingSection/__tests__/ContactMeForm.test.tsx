@@ -5,7 +5,7 @@ import { expect, describe, it, beforeAll } from '@jest/globals';
 describe('ContactMeForm', () => {
 
   describe('all components are poperly rendered in intial rendering', () => {
-    beforeAll(() => {
+    beforeEach(() => {
       render(<ContactMeForm />);
     })
 
@@ -28,7 +28,7 @@ describe('ContactMeForm', () => {
       const inputNode = screen.getByLabelText("Subject");
       expect(inputNode).toBeInTheDocument();
     });
-    
+
     it('checks Message input', () => {
       const inputNode = screen.getByLabelText("Message");
       expect(inputNode).toBeInTheDocument();
