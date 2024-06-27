@@ -68,8 +68,6 @@ export default function ContactMeForm({
     mode: "onBlur",
   });
 
-  console.log(errors)
-
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
