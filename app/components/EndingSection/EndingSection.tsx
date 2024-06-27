@@ -1,6 +1,7 @@
 import { lusitana, medieval } from "@/app/ui/fonts";
 import Link from "next/link";
 import ContactMeForm from "./ContactMeForm";
+import { createMessage } from "@/app/action";
 
 export default function EndingSection() {
 
@@ -11,7 +12,7 @@ export default function EndingSection() {
         <p className={`${lusitana.className}} leading-7 text-center`}>I hope you still enjoy the website. Drop me a notes if you want :p</p>
         
         <div className="w-full">
-          <ContactMeForm />
+          <ContactMeForm createMessage={createMessage}/>
         </div>
         
         <div className={`my-4  ${lusitana.className} flex flex-col md:flex-row justify-center items-center sm:gap-2 md:gap-4`}>

@@ -1,6 +1,6 @@
 "use client"
 
-import { TResponse, createMessage } from "@/app/action";
+import { TResponse } from "@/app/action";
 import Check from "@/app/ui/icons/Check";
 import { Input } from "@nextui-org/input";
 import { Textarea } from "@nextui-org/input";
@@ -54,13 +54,21 @@ function reducer(state: TInputs, action: { type: string, value: string }): TInpu
   }
 }
 
-export default function ContactMeForm() {
+export default function ContactMeForm({
+  createMessage,
+}: {
+  createMessage: (formData: TInputs) => Promise<TResponse>,
+}) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<TInputs>();
+  } = useForm<TInputs>({
+    mode: "onBlur",
+  });
+
+  console.log(errors)
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -97,6 +105,7 @@ export default function ContactMeForm() {
 
   return (
     <form
+      aria-label="contact-me-form"
       className="w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -139,12 +148,11 @@ export default function ContactMeForm() {
           type: 'change_email',
           value
         })}
-        // variant="bordered"
         className="w-full my-1"
-        isInvalid={!!errors.email}
-        errorMessage={errors.email?.message}
+        // isInvalid={!!errors.email}
+        // errorMessage={errors.email && errors.email.message}
         {...register("email", {
-          required: true,
+          required: "Please enter your email address",
           pattern: {
             value: /\S+@\S+\.\S+/,
             message: "Entered value does not match email format",
@@ -189,7 +197,6 @@ export default function ContactMeForm() {
       >
         { isSuccess && 'Message Sent' || isLoading && "Sending Message" || "Send" }
       </Button>
-
     </form>
   )
 }
