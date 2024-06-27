@@ -5,6 +5,7 @@ export interface IconProps extends React.SVGProps<SVGSVGElement> { }
 
 const Check = React.forwardRef<SVGSVGElement, IconProps>(({ className, ...props }, ref) => (
   <svg ref={ref}
+    role="img"
     className={cn('', className)}
     width='16'
     height='16'
