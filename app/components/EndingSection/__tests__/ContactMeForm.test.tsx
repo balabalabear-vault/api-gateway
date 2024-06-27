@@ -139,7 +139,7 @@ describe('ContactMeForm', () => {
       expect(form).toBeInTheDocument();
     })
 
-    afterEach(() => {
+    afterEach(async () => {
       sendButton = null;
       form = null;
     })
@@ -163,5 +163,33 @@ describe('ContactMeForm', () => {
         expect(mockSuccessCreateMessage).toHaveBeenCalledWith(dummyFormValue);
       })
     });
+
+    it('has all input with INCORRECT email', async () => {
+      const incorrectInfo = {
+        ...dummyFormValue,
+        email: '12345',
+      };
+      const email = screen.getByLabelText('Email')
+      await userEvent.clear(email);
+      await userEvent.type(email, incorrectInfo.email);
+      expect(form).toHaveFormValues(incorrectInfo);
+      fireEvent.submit(form as HTMLElement);
+
+
+      // Loading State 
+      waitFor(() => {
+        expect(sendButton).toHaveTextContent(/sending message/i);
+        expect(sendButton).toHaveClass("bg-default");
+      })
+
+      // Done !
+      waitFor(() => {
+        expect(sendButton).toHaveTextContent(/send/i);
+        expect(sendButton).toHaveClass("bg-secondary");
+        expect(email).toHaveClass("text-danger");
+        expect(mockSuccessCreateMessage).toHaveBeenCalledTimes(0);
+        expect(screen.getByRole('img')).not.toBeInTheDocument();
+      })
+    })
   });
 });
