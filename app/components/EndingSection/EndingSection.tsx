@@ -1,7 +1,7 @@
 import { lusitana, medieval } from "@/app/ui/fonts";
 import Link from "next/link";
 import ContactMeForm from "./ContactMeForm";
-import { createMessage } from "@/app/action";
+import { createMessage } from "@/app/server-actions/createMessage";
 
 export default function EndingSection() {
 
