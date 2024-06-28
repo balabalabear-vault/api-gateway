@@ -1,7 +1,8 @@
 import { act, cleanup, render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import ContactMeForm, { TInputs } from '../ContactMeForm'
-import { expect, describe, it, beforeAll } from '@jest/globals';
+import { expect, describe, it } from '@jest/globals';
+import { INVALID_EMAIL } from '@/app/constants/text';
 
 describe('ContactMeForm', () => {
   const inputs: { [key in keyof TInputs]: { name: RegExp; value: string, role: string } } = {
@@ -47,7 +48,6 @@ describe('ContactMeForm', () => {
         const inputNode = screen.getByRole(role, { name });
         expect(inputNode).toBeVisible();
         expect(inputNode).toBeRequired();
-
       }
     })
 
@@ -146,7 +146,7 @@ describe('ContactMeForm', () => {
       })
 
       expect(emailNode).toHaveClass('!text-danger');
-      expect(screen.getByText("Entered value does not match email format")).toBeInTheDocument();
+      expect(screen.getByText(INVALID_EMAIL)).toBeInTheDocument();
     });
 
     it('has all INCORRECT inputs but email', async () => {
