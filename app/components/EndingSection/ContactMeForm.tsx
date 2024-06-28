@@ -147,8 +147,8 @@ export default function ContactMeForm({
           value
         })}
         className="w-full my-1"
-        // isInvalid={!!errors.email}
-        // errorMessage={errors.email && errors.email.message}
+        isInvalid={!!errors.email}
+        errorMessage={errors.email && errors.email.message}
         {...register("email", {
           required: "Please enter your email address",
           pattern: {
@@ -167,7 +167,6 @@ export default function ContactMeForm({
           type: 'change_subject',
           value
         })}
-        // variant="bordered"
         className="w-full my-1"
         {...register("subject", { required: true })}
       />
@@ -191,7 +190,8 @@ export default function ContactMeForm({
         type="submit"
         color={isSuccess && "success" || isLoading && "default" || "secondary"}
         startContent={isSuccess && <Check />}
-        disabled={isSuccess}
+        // disabled={isSuccess}
+        disabled={isSuccess || Object.keys(errors).length > 0}
       >
         { isSuccess && 'Message Sent' || isLoading && "Sending Message" || "Send" }
       </Button>
