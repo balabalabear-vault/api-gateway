@@ -1,6 +1,6 @@
 'use client'
 import { lusitana } from "@/app/ui/fonts";
-import { easeOut, motion, useAnimate, useTransform } from "framer-motion";
+import { motion, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useScroll } from "framer-motion"
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
