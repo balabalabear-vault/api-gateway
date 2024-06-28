@@ -1,6 +1,8 @@
 "use client"
 
-import { TResponse } from "@/app/action";
+import { EMAIL_REGEX } from "@/app/constants/regex";
+import { INVALID_EMAIL } from "@/app/constants/text";
+import { TResponse } from "@/app/server-actions/createMessage";
 import Check from "@/app/ui/icons/Check";
 import { Input } from "@nextui-org/input";
 import { Textarea } from "@nextui-org/input";
@@ -152,8 +154,8 @@ export default function ContactMeForm({
         {...register("email", {
           required: "Please enter your email address",
           pattern: {
-            value: /\S+@\S+\.\S+/,
-            message: "Entered value does not match email format",
+            value: EMAIL_REGEX,
+            message: INVALID_EMAIL,
           },
         })}
       />
@@ -190,7 +192,6 @@ export default function ContactMeForm({
         type="submit"
         color={isSuccess && "success" || isLoading && "default" || "secondary"}
         startContent={isSuccess && <Check />}
-        // disabled={isSuccess}
         disabled={isSuccess || Object.keys(errors).length > 0}
       >
         { isSuccess && 'Message Sent' || isLoading && "Sending Message" || "Send" }
