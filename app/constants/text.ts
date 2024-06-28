@@ -1,0 +1,1 @@
+export const INVALID_EMAIL = "Entered value does not match email format";

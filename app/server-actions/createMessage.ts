@@ -1,7 +1,9 @@
 'use server'
 import chalk from 'chalk';
 import { z } from 'zod';
-import { TInputs } from './components/EndingSection/ContactMeForm';
+import { TInputs } from '../components/EndingSection/ContactMeForm';
+import { EMAIL_REGEX } from '../constants/regex';
+import { INVALID_EMAIL } from '../constants/text';
 
 const error = chalk.bold.red;
 
@@ -17,11 +19,11 @@ const createErrorMessage = (field: string) => ({
 
 export async function createMessage(formData: TInputs): Promise<TResponse>{
     const MessageSchema = z.object({
-        firstName: z.string(createErrorMessage('firstName')),
-        lastName: z.string(createErrorMessage('lastName')),
-        email: z.string(createErrorMessage('email')),
-        subject: z.string(createErrorMessage('subject')),
-        message: z.string(createErrorMessage('message'))
+        firstName: z.string(createErrorMessage('firstName')).min(1),
+        lastName: z.string(createErrorMessage('lastName')).min(1),
+        email: z.string(createErrorMessage('email')).regex(EMAIL_REGEX, { message: INVALID_EMAIL }),
+        subject: z.string(createErrorMessage('subject')).min(1),
+        message: z.string(createErrorMessage('message')).min(1),
       });
     try {
         const validation = MessageSchema.safeParse(formData);
