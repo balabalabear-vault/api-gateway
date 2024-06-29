@@ -1,11 +1,13 @@
 "use client"
 
-import { TResponse } from "@/app/action";
+import { EMAIL_REGEX } from "@/app/constants/regex";
+import { INVALID_EMAIL } from "@/app/constants/text";
+import { TResponse } from "@/app/server-actions/createMessage";
 import Check from "@/app/ui/icons/Check";
 import { Input } from "@nextui-org/input";
 import { Textarea } from "@nextui-org/input";
 import { Button } from "@nextui-org/react";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState, useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export type TInputs = {
@@ -68,10 +70,9 @@ export default function ContactMeForm({
     mode: "onBlur",
   });
 
-  console.log(errors)
-
-  const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [response, setResponse] = useState<TResponse>();
+  const [isLoading, startTransition] = useTransition();
 
   const [state, dispatch] = useReducer(reducer, {
     firstName: '',
@@ -81,13 +82,12 @@ export default function ContactMeForm({
     message: '',
   });
 
-  const onSubmit: SubmitHandler<TInputs> = async (data) => {
-    setIsLoading(true);
-    const res: TResponse = await createMessage(data);
-    switch(res.status) {
+  useEffect(() => {
+    if(!response) return;
+    switch(response.status) {
       case 400: {
-        if(res.errors && typeof res.errors === "object") {
-          Object.entries(res.errors).forEach(([k, v]) => {
+        if(response.error && typeof response.error === "object") {
+          Object.entries(response.error).forEach(([k, v]) => {
             if(v.length) {
               setError(k as keyof TInputs, { type: 'custom', message: v.join('\n') })
             }
@@ -100,14 +100,20 @@ export default function ContactMeForm({
         return;
       }
     }
-    setIsLoading(false);
-  }
+  }, [response])
+
+  const handleClick = handleSubmit(async (data) => {
+    startTransition(async () => {
+      const res: TResponse = await createMessage(data);
+      setResponse(res);
+    });
+  });
 
   return (
     <form
       aria-label="contact-me-form"
       className="w-full"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleClick}
     >
       <div className="sm:flex sm:flex-row">
         <Input
@@ -149,13 +155,13 @@ export default function ContactMeForm({
           value
         })}
         className="w-full my-1"
-        // isInvalid={!!errors.email}
-        // errorMessage={errors.email && errors.email.message}
+        isInvalid={!!errors.email}
+        errorMessage={errors.email && errors.email.message}
         {...register("email", {
           required: "Please enter your email address",
           pattern: {
-            value: /\S+@\S+\.\S+/,
-            message: "Entered value does not match email format",
+            value: EMAIL_REGEX,
+            message: INVALID_EMAIL,
           },
         })}
       />
@@ -169,7 +175,6 @@ export default function ContactMeForm({
           type: 'change_subject',
           value
         })}
-        // variant="bordered"
         className="w-full my-1"
         {...register("subject", { required: true })}
       />
@@ -193,7 +198,7 @@ export default function ContactMeForm({
         type="submit"
         color={isSuccess && "success" || isLoading && "default" || "secondary"}
         startContent={isSuccess && <Check />}
-        disabled={isSuccess}
+        disabled={isSuccess || Object.keys(errors).length > 0}
       >
         { isSuccess && 'Message Sent' || isLoading && "Sending Message" || "Send" }
       </Button>
