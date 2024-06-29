@@ -86,8 +86,8 @@ export default function ContactMeForm({
     const res: TResponse = await createMessage(data);
     switch(res.status) {
       case 400: {
-        if(res.errors && typeof res.errors === "object") {
-          Object.entries(res.errors).forEach(([k, v]) => {
+        if(res.error && typeof res.error === "object") {
+          Object.entries(res.error).forEach(([k, v]) => {
             if(v.length) {
               setError(k as keyof TInputs, { type: 'custom', message: v.join('\n') })
             }
