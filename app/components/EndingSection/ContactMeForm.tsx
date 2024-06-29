@@ -7,7 +7,7 @@ import Check from "@/app/ui/icons/Check";
 import { Input } from "@nextui-org/input";
 import { Textarea } from "@nextui-org/input";
 import { Button } from "@nextui-org/react";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState, useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export type TInputs = {
@@ -70,8 +70,9 @@ export default function ContactMeForm({
     mode: "onBlur",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [response, setResponse] = useState<TResponse>();
+  const [isLoading, startTransition] = useTransition();
 
   const [state, dispatch] = useReducer(reducer, {
     firstName: '',
@@ -81,13 +82,12 @@ export default function ContactMeForm({
     message: '',
   });
 
-  const onSubmit: SubmitHandler<TInputs> = async (data) => {
-    setIsLoading(true);
-    const res: TResponse = await createMessage(data);
-    switch(res.status) {
+  useEffect(() => {
+    if(!response) return;
+    switch(response.status) {
       case 400: {
-        if(res.error && typeof res.error === "object") {
-          Object.entries(res.error).forEach(([k, v]) => {
+        if(response.error && typeof response.error === "object") {
+          Object.entries(response.error).forEach(([k, v]) => {
             if(v.length) {
               setError(k as keyof TInputs, { type: 'custom', message: v.join('\n') })
             }
@@ -100,14 +100,20 @@ export default function ContactMeForm({
         return;
       }
     }
-    setIsLoading(false);
-  }
+  }, [response])
+
+  const handleClick = handleSubmit(async (data) => {
+    startTransition(async () => {
+      const res: TResponse = await createMessage(data);
+      setResponse(res);
+    });
+  });
 
   return (
     <form
       aria-label="contact-me-form"
       className="w-full"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleClick}
     >
       <div className="sm:flex sm:flex-row">
         <Input
