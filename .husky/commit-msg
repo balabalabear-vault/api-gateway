@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 message="$(cat $1)"
-requiredPattern="^(feat|fix|docs|style|test|refactor|perf|ci): .*$"
+requiredPattern="^(feat|fix|refactor|docs|style|test|refactor|perf|ci): .*$"
 if ! [[ $message =~ $requiredPattern ]];
 then
   echo "-"
@@ -11,7 +11,7 @@ then
   echo "🚨 Wrong commit message! 😕"
   echo "The commit message must have this format:"
   echo "<verb in imperative mood> <what was done>"
-  echo "Allowed verbs in imperative mood: add, cut, fix, bump, make, start, stop, refactor, reformat, optimise, document, merge"
+  echo "Allowed verbs in imperative mood: feat, fix, refactor, docs, style, test, refactor, perf, ci"
   echo "Example: add login button"
   echo "-"
   echo "Your commit message was:"
