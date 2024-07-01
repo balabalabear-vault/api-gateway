@@ -1,26 +1,28 @@
 'use client'
 
 import React, { useRef, useState } from 'react'
-import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { OrbitControls, Center } from '@react-three/drei'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { OrbitControls, Center, useTexture } from '@react-three/drei'
 import { Geometry, Base } from '@react-three/csg'
 
 import * as THREE from 'three';
 import { BufferGeometry, Material, Mesh, NormalBufferAttributes, Object3DEventMap } from 'three'
+import { albedo, bump, clouds } from '../constants/assets'
 
 type TGeneralState = {
     hover: boolean;
 }
+
+useTexture.preload(albedo);
+useTexture.preload(bump);
+useTexture.preload(clouds);
 
 function Earth({
     hover
 }: TGeneralState) {
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>, Material | Material[], Object3DEventMap>>(null);
 
-    const [albedoMap, bumpMap] = useLoader(THREE.TextureLoader, [
-        './earth-texture/Albedo.jpg',
-        './earth-texture/Bump.jpg',
-    ]);
+    const [albedoMap, bumpMap] = useTexture([albedo, bump]);
     useFrame((state, delta) => {
         if (meshRef.current && !hover) {
             meshRef.current.rotation.y += delta / 4;
@@ -50,9 +52,7 @@ function Cloud({
     hover
 }: TGeneralState) {
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>, Material | Material[], Object3DEventMap>>(null);
-    const [cloudsMap] = useLoader(THREE.TextureLoader, [
-        './earth-texture/Clouds.png',
-    ]);
+    const cloudsMap = useTexture(clouds);
     useFrame((state, delta) => {
         if (meshRef.current && !hover) {
             meshRef.current.rotation.y += delta / 4;
