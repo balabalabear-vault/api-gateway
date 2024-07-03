@@ -17,6 +17,10 @@ export default function NavBar() {
         {
             name: "Travel",
             url: "/travels",
+        },
+        {
+            name: "Guestbook",
+            url: "/guestbook",
         }
     ]), []);
 
