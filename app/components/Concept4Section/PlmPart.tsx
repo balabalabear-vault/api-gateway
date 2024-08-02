@@ -202,7 +202,7 @@ export default function PlmPart() {
   const parts = useMemo(() => ([
     {
       heading: "Product Lifecycle Management - PLM",
-      imgSource: "/PLM/homepage.png",
+      imgSource: "/PLM/homepage.jpg",
       css: "relative flex justify-center items-start sticky top-4 grow-1",
       y: introductionY,
       opacity: introductionOpacity,
@@ -211,7 +211,7 @@ export default function PlmPart() {
     }, {
       css: "relative flex justify-center items-start sticky top-16 grow-1",
       heading: "Permissions and Collaborations",
-      imgSource: "/PLM/collection_list.png",
+      imgSource: "/PLM/collection_list.jpg",
       y: exclusivenessY,
       opacity: exclusivenessYOpacity,
       detailText: ExclusivenessDetailText,
