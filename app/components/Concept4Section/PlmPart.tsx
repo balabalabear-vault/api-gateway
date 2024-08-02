@@ -219,7 +219,7 @@ export default function PlmPart() {
     }, {
       css: "relative flex justify-center items-start sticky top-28 grow-1",
       heading: "Personal Product Enquiry",
-      imgSource: "/PLM/shopping_cart.png",
+      imgSource: "/PLM/shopping_cart.jpg",
       y: personalizedY,
       opacity: personalizedOpacity,
       detailText: PersonalizedDetailText,
