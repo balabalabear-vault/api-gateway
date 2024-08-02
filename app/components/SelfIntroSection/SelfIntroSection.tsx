@@ -46,6 +46,7 @@ export default function SelfIntroSection() {
             alt="Profil Picture"
             width={448}
             height={672}
+            priority
             />
         </div>
         <div className={`${lusitana.className} col-span-2 text-white`}>

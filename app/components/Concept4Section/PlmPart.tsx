@@ -31,6 +31,7 @@ function PartTemplate({
               height={212 * 1.2}
               src={imgSource}
               width={332 * 1.2}
+              priority
             />
           </div>
           <div className="col-span-2 hyphens-auto">

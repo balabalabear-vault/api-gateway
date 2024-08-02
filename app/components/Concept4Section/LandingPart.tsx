@@ -27,6 +27,7 @@ export default function LandingPart() {
           width={1600}
           height={400}
           className="grow-0 shrink-0 mb-3"
+          priority
         />
       </motion.div>
       <motion.div className="max-w-3xl flex justify-center items-center" style={{ opacity }}>
