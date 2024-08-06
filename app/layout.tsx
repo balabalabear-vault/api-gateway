@@ -8,7 +8,7 @@ import NavBar from "./components/NavBar";
 
 export const metadata: Metadata = {
   title: "My Vault",
-  description: "Welcome to Yui Kuen Kwok's vault"
+  description: "Welcome to Jack Kwok's vault"
 };
 
 export default function RootLayout({
