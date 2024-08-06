@@ -1,3 +1,4 @@
+import { CLOUD_FRONT_URL } from "@/app/constants/assets";
 import { lusitana } from "@/app/ui/fonts";
 import { useTransform, motion, useScroll, easeInOut } from "framer-motion";
 import Image from "next/image";
@@ -22,7 +23,7 @@ export default function LandingPart() {
     >
       <motion.div style={{ opacity }}>
         <Image
-          src="/concept4_logo.png"
+          src={`${CLOUD_FRONT_URL}/concept4_logo.png`}
           alt="Concept4"
           width={1600}
           height={400}

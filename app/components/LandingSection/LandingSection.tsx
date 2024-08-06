@@ -1,8 +1,8 @@
 'use client'
 import { motion, useAnimate } from "framer-motion";
 import { elven, medieval } from "../../ui/fonts";
-import elfHouse from '../../../public/elf_house.jpg'
 import { useMemo } from "react";
+import { CLOUD_FRONT_URL } from "@/app/constants/assets";
 
 const getRandomDelay = () => -(Math.random() * 0.7 + 0.05);
 
@@ -21,7 +21,7 @@ export default function LandingSection() {
     <section
       className="bg-cover bg-slate-800 w-full h-lvh flex flex-col items-center justify-center"
       style={{
-        backgroundImage: `url(${elfHouse.src})`,
+        backgroundImage: `url(${CLOUD_FRONT_URL}/elf_house.jpg)`,
         boxShadow: 'inset 0 0 0 1000px rgba(200,200,200,.7)',
       }}
     >

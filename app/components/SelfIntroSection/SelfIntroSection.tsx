@@ -6,6 +6,7 @@ import { useScroll } from "framer-motion"
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { MediaContext } from "@/app/providers/Responsive/ResponsiveProvider";
 import Summary from "./Summary";
+import { CLOUD_FRONT_URL } from "@/app/constants/assets";
 
 export default function SelfIntroSection() {
   const media = useContext(MediaContext);
@@ -42,7 +43,7 @@ export default function SelfIntroSection() {
       <motion.div style={{ opacity, y }} className="w-full min-h-lvh p-24 grid grid-cols-1 md:grid-cols-3 items-center justify-around gap-4 relative">
         <div className="flex justify-center items-center">
           <Image
-            src="/myself.jpg"
+            src={`${CLOUD_FRONT_URL}/myself.jpg`}
             alt="Profil Picture"
             width={448}
             height={672}

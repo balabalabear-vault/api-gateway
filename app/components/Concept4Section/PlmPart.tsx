@@ -1,3 +1,4 @@
+import { CLOUD_FRONT_URL } from "@/app/constants/assets";
 import { MediaContext } from "@/app/providers/Responsive/ResponsiveProvider";
 import { medieval, lusitana } from "@/app/ui/fonts";
 import { Card, CardHeader, Divider, CardBody } from "@nextui-org/react";
@@ -202,7 +203,7 @@ export default function PlmPart() {
   const parts = useMemo(() => ([
     {
       heading: "Product Lifecycle Management - PLM",
-      imgSource: "/PLM/homepage.jpg",
+      imgSource: `${CLOUD_FRONT_URL}/homepage.jpg`,
       css: "relative flex justify-center items-start sticky top-4 grow-1",
       y: introductionY,
       opacity: introductionOpacity,
@@ -211,7 +212,7 @@ export default function PlmPart() {
     }, {
       css: "relative flex justify-center items-start sticky top-16 grow-1",
       heading: "Permissions and Collaborations",
-      imgSource: "/PLM/collection_list.jpg",
+      imgSource: `${CLOUD_FRONT_URL}/collection_list.jpg`,
       y: exclusivenessY,
       opacity: exclusivenessYOpacity,
       detailText: ExclusivenessDetailText,
@@ -219,7 +220,7 @@ export default function PlmPart() {
     }, {
       css: "relative flex justify-center items-start sticky top-28 grow-1",
       heading: "Personal Product Enquiry",
-      imgSource: "/PLM/shopping_cart.jpg",
+      imgSource: `${CLOUD_FRONT_URL}/shopping_cart.jpg`,
       y: personalizedY,
       opacity: personalizedOpacity,
       detailText: PersonalizedDetailText,
@@ -227,7 +228,7 @@ export default function PlmPart() {
     }, {
       css: "relative flex justify-center items-start sticky top-40 grow-1",
       heading: "Permanent Record for Accountability",
-      imgSource: "/PLM/export_collection.png",
+      imgSource: `${CLOUD_FRONT_URL}/export_collection.png`,
       y: permanentY,
       opacity: permanentOpacity,
       detailText: PermanentDetailText,
