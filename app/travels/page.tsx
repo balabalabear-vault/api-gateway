@@ -77,10 +77,10 @@ function Surrounding({
     hover
 }: TGeneralState) {
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>, Material | Material[], Object3DEventMap>>(null);
-    useFrame((state, delta) => {
+    useFrame((state, delta, xrFrame) => {
         if (meshRef.current && !hover) {
-            meshRef.current.rotation.y += delta / 4;
-        }
+            meshRef.current.rotation.y += 0.01;
+        } else { console.log(state)}
     })
     return (
         <mesh
