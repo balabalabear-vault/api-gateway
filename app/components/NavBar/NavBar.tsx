@@ -11,12 +11,19 @@ export default function NavBar() {
 
     const menuItems = useMemo(() => ([
         {
+            name: "GitHub",
+            url: "https://github.com/balabalabear-vault",
+            newTab: true
+        },
+        {
             name: "Profile",
             url: "/",
+            newTab: false
         },
         {
             name: "Travel",
             url: "/travels",
+            newTab: false
         }
     ]), []);
 
@@ -33,7 +40,9 @@ export default function NavBar() {
                     className="sm:hidden"
                 />
                 <NavbarBrand>
-                    <p className="font-bold text-inherit">Jack Kwok</p>
+                    <Link color="foreground" href='/'>
+                        <p className="font-bold text-inherit">Jack Kwok</p>
+                    </Link>
                 </NavbarBrand>
             </NavbarContent>
 
@@ -42,7 +51,7 @@ export default function NavBar() {
                 {
                     menuItems.map((item) => (
                         <NavbarItem key={item.name} isActive={pathname === item.url}>
-                            <Link color="foreground" href={item.url}>
+                            <Link color="foreground" href={item.url} target={item.newTab ? "_blank" : "_self"}>
                                 {item.name}
                             </Link>
                         </NavbarItem>
@@ -56,7 +65,7 @@ export default function NavBar() {
                         <Link
                             className="w-full"
                             href={item.url}
-                         >
+                        >
                             {item.name}
                         </Link>
                     </NavbarMenuItem>
